@@ -80,7 +80,7 @@ map(test_list,~.x+5)
 #> [1]  8  9 10
 ```
 
-Other **map_** functions are similar to **map**. You just need to specify the output type.
+Other **map\_** functions are similar to **map**. You just need to specify the output type.
 ``` r
 library(purrr)
 test_list <- list(a=c(1,2,3),
