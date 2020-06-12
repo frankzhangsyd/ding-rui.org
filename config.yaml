@@ -1,0 +1,81 @@
+baseurl : "/"
+languageCode : "en-us"
+title : "Dingrui"
+disqusShortname: "Frank"
+theme : "hugo-ivy"
+googleAnalytics : ""
+hasCJKLanguage: true
+enableEmoji : true
+ignoreFiles : ["\\.Rmd$", "_files$", "_cache$"]
+preserveTaxonomyNames : true
+footnotereturnlinkcontents : "↩"
+
+permalinks:
+  cn: "/cn/:year/:month/:slug/"
+  en: "/en/:year/:month/:slug/"
+    
+menu:
+  main:
+    - name: "About"
+      url: "/en/about/"
+      weight: 1
+    - name: "Blog"
+      url: "/en/"
+      weight: 2
+    - name: "关于"
+      url: "/cn/about/"
+      weight: 3
+    - name: "日志"
+      url: "/cn/"
+      weight: 4
+  en:
+    - name: "Home"
+      url: "/"
+      weight: 1
+    - name: "About"
+      url: "/en/about/"
+      weight: 2
+    - name: "Blog"
+      url: "/en/"
+      weight: 3
+    - name: "Vitae"
+      url: "/en/vitae/"
+      weight: 4
+    - name: "中文"
+      url: "/cn/"
+      weight: 5
+  cn:
+    - name: "首页"
+      url: "/"
+      weight: 1
+    - name: "关于"
+      url: "/cn/about/"
+      weight: 2
+    - name: "日志"
+      url: "/cn/"
+      weight: 3
+    - name: "简历"
+      url: "/cn/vitae/"
+      weight: 4
+    - name: "English"
+      url: "/en/"
+      weight: 5
+params:
+  description : "Personal website of Dingrui(Frank)"
+  footer : "&copy; [Dingrui(Frank) Zhang](/) 2020"
+  highlightjsVersion : "9.12.0"
+  highlightjsCDN : "//cdnjs.cloudflare.com/ajax/libs"
+  highlightjsLang : ["r", "yaml", "tex"]
+  highlightjsTheme : "github"
+
+markup:
+  highlight:
+    codeFences: true
+    guessSyntax: false
+    hl_Lines: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: true
+    style: tango
+    tabWidth: 4
