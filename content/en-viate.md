@@ -7,7 +7,7 @@ disable_comments: true
 # Dingrui Zhang
 
 ## Contact Information
-Work Email: <frank@dingruizhang.me>;
+Email: <zhang@ding-rui.org>  
 [Linkedin](https://www.linkedin.com/in/dingrui-zhang/)
 
 

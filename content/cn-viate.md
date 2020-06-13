@@ -6,8 +6,10 @@ disable_comments: true
 
 # 章丁睿
 
+[English Viate](/en/vitae/)
+
 ## 联系方式
-电子邮件: <>
+电子邮件: <zhang@ding-rui.org>  
 [领英](https://www.linkedin.com/in/dingrui-zhang/)
 
 ## 教育经历
@@ -15,22 +17,22 @@ disable_comments: true
 - 2013 ~ 2017, 会计学士, 河北经贸大学，河北石家庄; 平均分: 80/100
 
 ## 工作经历
-**2020-01 ~ Present 
-悉尼, 澳大利亚
-*顾问, 数据分析*
+**2020-01 ~ Present  
+悉尼, 澳大利亚  
+*顾问, 数据分析*  
 普华永道**
 
-**2019-08 ~ 2019-12
-悉尼, 澳大利亚
-*财务分析师*
-悉尼大学**
+**2019-08 ~ 2019-12  
+悉尼, 澳大利亚  
+*财务分析师*  
+悉尼大学**  
 
-**2018-12 ~ 2019-09
-悉尼, 澳大利亚
-*数据分析实习生*
+**2018-12 ~ 2019-09  
+悉尼, 澳大利亚  
+*数据分析实习生*  
 [Travelzoo (Australia) PTY Ltd](https://www.travelzoo.com/au/)**
 
-**2017-08 ~ 2018-09
-Sydney, Australia
-*财务分析*
+**2017-08 ~ 2018-09  
+Sydney, Australia  
+*财务分析*  
 UBI Logistics (Australia) Pty Ltd**
