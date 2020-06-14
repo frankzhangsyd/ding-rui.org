@@ -2,11 +2,8 @@
 
 {{ .Content }}
 
-{{ if .IsHome }}
-{{ $.Scratch.Set "pages" .Site.RegularPages }}
-{{ else }}
+{{ if not .IsHome }}
 {{ $.Scratch.Set "pages" .Pages }}
-{{ end }}
 <ul>
   {{ range (where ($.Scratch.Get "pages") "Section" "!=" "") }}
   <li>
@@ -15,5 +12,5 @@
   </li>
   {{ end }}
 </ul>
-
+{{ end }}
 {{ partial "footer.html" . }}
