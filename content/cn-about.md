@@ -12,5 +12,7 @@ disable_comments: true
 
 # 本站架构
 
-[blogdown](https://github.com/rstudio/blogdown)+[Hugo](https://gohugo.io)
+[blogdown](https://github.com/rstudio/blogdown)+[Hugo](https://gohugo.io)  
+
+本站源代码参见[Github](https://github.com/frankzhangsyd/ding-rui.org)
 

@@ -12,5 +12,7 @@ You can find me on [GitHub](https://github.com/frankzhangsyd/) (where I'm becomi
 
 ## About this site
 
-This site is created with [Hugo](https://gohugo.io) and [blogdown](https://github.com/rstudio/blogdown).The theme is [hugo-ivy](https://github.com/yihui/hugo-ivy). 
+This site is created with [Hugo](https://gohugo.io) and [blogdown](https://github.com/rstudio/blogdown). The theme is [hugo-ivy](https://github.com/yihui/hugo-ivy).  
+
+Source code of creating this site in also available on the [Github](https://github.com/frankzhangsyd/ding-rui.org).
 
