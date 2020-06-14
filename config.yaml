@@ -61,7 +61,6 @@ menu:
       url: "/en/"
       weight: 5
 params:
-  description : "Personal website of Dingrui(Frank)"
   footer : "&copy; [Dingrui(Frank) Zhang](/) 2020"
   highlightjsVersion : "9.12.0"
   highlightjsCDN : "//cdnjs.cloudflare.com/ajax/libs"
