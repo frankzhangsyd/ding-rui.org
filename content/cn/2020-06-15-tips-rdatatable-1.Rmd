@@ -56,8 +56,8 @@ dt[, paste0("Category_", 1:4) := tstrsplit(Category, split = "-")][]
 dt[, .(
   Start_Date = Start_Date,
   End_Date = End_Date,
-  Category = unlist(strsplit(Category, split = "-"))
-)]
+  Category = unlist(strsplit(Category, split = "-"))),
+  by = 1:nrow(dt)]
 ```
 
 ### 根据两列生成行（多见于日期的起始)
