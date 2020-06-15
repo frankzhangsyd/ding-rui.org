@@ -1,7 +1,7 @@
 baseurl : "/"
 languageCode : "en-us"
 title : "Dingrui"
-disqusShortname: "Frank"
+disqusShortname: "DingruiZhang"
 theme : "hugo-ivy"
 googleAnalytics : "UA-169289985-1"
 hasCJKLanguage: true
