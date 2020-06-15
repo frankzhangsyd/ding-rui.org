@@ -66,6 +66,13 @@ params:
   highlightjsCDN : "//cdnjs.cloudflare.com/ajax/libs"
   highlightjsLang : ["r", "yaml", "tex"]
   highlightjsTheme : "github"
+  
+  logo:
+    en: 
+      img: "/images/logo.png"
+      url: "/"
+      alt: "Dingrui(Frank) Zhang"
+      tag: ""    
 
 markup:
   highlight:
