@@ -38,9 +38,12 @@ map(test_list,mean)
 ```
 <!--more-->
 **map** takes 3 arguments which are **.x**,**.f**,**...**.
-**.x** is the list or vector you want to apply function on.
-**.f** is the function you want to apply.
-**...** is the arguments you want to specify in **.f**.
+
+**.x** is the list or vector you want to apply function on.  
+
+**.f** is the function you want to apply.  
+
+**...** is the arguments you want to specify in **.f**.  
 
 ```r
 library(purrr)
