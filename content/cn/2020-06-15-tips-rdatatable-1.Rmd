@@ -1,0 +1,79 @@
+---
+title: R data.table的几个小技巧（一）
+author: Frank
+date: '2020-06-15'
+slug: tips-rdatatable-1
+categories: []
+tags: []
+---
+
+目前来说，在R里面manipulate data主要有两个流派，[data.table](https://github.com/Rdatatable/data.table) 和包括 [dplyr](https://dplyr.tidyverse.org/index.html)、[tidyr](https://tidyr.tidyverse.org/)等的[tidyverse](https://www.tidyverse.org/)
+
+我个人来说是比较偏向于使用`data.table`的。其语法，性能，稳定性都优于`tidyverse` (一家之言见笑了)。本系列将分享一些个人的小技巧，解释不会很多，只是作为自己的一个future reference。
+
+### 导入 data.table
+```{r library-call, echo=TRUE,results='hide'}
+library(data.table)
+```
+```{r callknitr, include=FALSE}
+library(knitr)
+```
+
+### 创建example data
+```{r exampledata}
+dt <- data.table(
+  Start_Date = as.Date(c(
+    "2019-05-01", "2019-08-04", "2019-07-05",
+    "2019-07-04", "2019-04-27", "2019-04-26",
+    "2019-02-13", "2019-02-15", "2018-11-26",
+    "2018-11-11"
+  )),
+  End_Date = as.Date(c(
+    "2019-06-01", "2019-08-09", "2019-08-14",
+    "2019-07-05", "2019-05-10", "2019-05-20",
+    "2019-02-16", "2019-03-02", "2018-12-17",
+    "2018-11-19"
+  )),
+  Category = c(
+    "Q-Y-M-V", "E-E-E-H", "A-N-T-D",
+    "J-T-B-X", "D-R-H-Z", "R-O-C-R",
+    "Z-C-A-M", "O-I-J-E", "G-D-K-W", "V-Z-O-B"
+  )
+)
+```
+```{r echo=FALSE}
+kable(dt)
+```
+
+### 拆分一列到多列
+
+```{r}
+dt[, paste0("Category_", 1:4) := tstrsplit(Category, split = "-")][]
+```
+
+### 拆分一列到多行
+```{r}
+dt[, .(
+  Start_Date = Start_Date,
+  End_Date = End_Date,
+  Category = unlist(strsplit(Category, split = "-"))
+)]
+```
+
+### 根据两列生成行（多见于日期的起始)
+```{r}
+dt[, .(
+  Start_Date = Start_Date,
+  End_Date = End_Date,
+  Date = seq.Date(Start_Date, End_Date, by = "day"),
+  Category = Category
+),
+by = 1:nrow(dt)
+]
+```
+
+### 多列合并
+```{r}
+dt[, .(all_category = do.call(paste, c(.SD, sep = "-"))), .SDcols = patterns("\\d$")]
+```
+还可以用于多列相加，相乘等。

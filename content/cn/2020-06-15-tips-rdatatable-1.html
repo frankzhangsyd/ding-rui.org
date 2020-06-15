@@ -1,0 +1,204 @@
+---
+title: R data.table的几个小技巧（一）
+author: Frank
+date: '2020-06-15'
+slug: tips-rdatatable-1
+categories: []
+tags: []
+---
+
+
+
+<p>目前来说，在R里面manipulate data主要有两个流派，<a href="https://github.com/Rdatatable/data.table">data.table</a> 和包括 <a href="https://dplyr.tidyverse.org/index.html">dplyr</a>、<a href="https://tidyr.tidyverse.org/">tidyr</a>等的<a href="https://www.tidyverse.org/">tidyverse</a></p>
+<p>我个人来说是比较偏向于使用<code>data.table</code>的。其语法，性能，稳定性都优于<code>tidyverse</code> (一家之言见笑了)。本系列将分享一些个人的小技巧，解释不会很多，只是作为自己的一个future reference。</p>
+<div id="导入-data.table" class="section level3">
+<h3>导入 data.table</h3>
+<pre class="r"><code>library(data.table)</code></pre>
+</div>
+<div id="创建example-data" class="section level3">
+<h3>创建example data</h3>
+<pre class="r"><code>dt &lt;- data.table(
+  Start_Date = as.Date(c(
+    &quot;2019-05-01&quot;, &quot;2019-08-04&quot;, &quot;2019-07-05&quot;,
+    &quot;2019-07-04&quot;, &quot;2019-04-27&quot;, &quot;2019-04-26&quot;,
+    &quot;2019-02-13&quot;, &quot;2019-02-15&quot;, &quot;2018-11-26&quot;,
+    &quot;2018-11-11&quot;
+  )),
+  End_Date = as.Date(c(
+    &quot;2019-06-01&quot;, &quot;2019-08-09&quot;, &quot;2019-08-14&quot;,
+    &quot;2019-07-05&quot;, &quot;2019-05-10&quot;, &quot;2019-05-20&quot;,
+    &quot;2019-02-16&quot;, &quot;2019-03-02&quot;, &quot;2018-12-17&quot;,
+    &quot;2018-11-19&quot;
+  )),
+  Category = c(
+    &quot;Q-Y-M-V&quot;, &quot;E-E-E-H&quot;, &quot;A-N-T-D&quot;,
+    &quot;J-T-B-X&quot;, &quot;D-R-H-Z&quot;, &quot;R-O-C-R&quot;,
+    &quot;Z-C-A-M&quot;, &quot;O-I-J-E&quot;, &quot;G-D-K-W&quot;, &quot;V-Z-O-B&quot;
+  )
+)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Start_Date</th>
+<th align="left">End_Date</th>
+<th align="left">Category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2019-05-01</td>
+<td align="left">2019-06-01</td>
+<td align="left">Q-Y-M-V</td>
+</tr>
+<tr class="even">
+<td align="left">2019-08-04</td>
+<td align="left">2019-08-09</td>
+<td align="left">E-E-E-H</td>
+</tr>
+<tr class="odd">
+<td align="left">2019-07-05</td>
+<td align="left">2019-08-14</td>
+<td align="left">A-N-T-D</td>
+</tr>
+<tr class="even">
+<td align="left">2019-07-04</td>
+<td align="left">2019-07-05</td>
+<td align="left">J-T-B-X</td>
+</tr>
+<tr class="odd">
+<td align="left">2019-04-27</td>
+<td align="left">2019-05-10</td>
+<td align="left">D-R-H-Z</td>
+</tr>
+<tr class="even">
+<td align="left">2019-04-26</td>
+<td align="left">2019-05-20</td>
+<td align="left">R-O-C-R</td>
+</tr>
+<tr class="odd">
+<td align="left">2019-02-13</td>
+<td align="left">2019-02-16</td>
+<td align="left">Z-C-A-M</td>
+</tr>
+<tr class="even">
+<td align="left">2019-02-15</td>
+<td align="left">2019-03-02</td>
+<td align="left">O-I-J-E</td>
+</tr>
+<tr class="odd">
+<td align="left">2018-11-26</td>
+<td align="left">2018-12-17</td>
+<td align="left">G-D-K-W</td>
+</tr>
+<tr class="even">
+<td align="left">2018-11-11</td>
+<td align="left">2018-11-19</td>
+<td align="left">V-Z-O-B</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="拆分一列到多列" class="section level3">
+<h3>拆分一列到多列</h3>
+<pre class="r"><code>dt[, paste0(&quot;Category_&quot;, 1:4) := tstrsplit(Category, split = &quot;-&quot;)][]</code></pre>
+<pre><code>##     Start_Date   End_Date Category Category_1 Category_2 Category_3 Category_4
+##  1: 2019-05-01 2019-06-01  Q-Y-M-V          Q          Y          M          V
+##  2: 2019-08-04 2019-08-09  E-E-E-H          E          E          E          H
+##  3: 2019-07-05 2019-08-14  A-N-T-D          A          N          T          D
+##  4: 2019-07-04 2019-07-05  J-T-B-X          J          T          B          X
+##  5: 2019-04-27 2019-05-10  D-R-H-Z          D          R          H          Z
+##  6: 2019-04-26 2019-05-20  R-O-C-R          R          O          C          R
+##  7: 2019-02-13 2019-02-16  Z-C-A-M          Z          C          A          M
+##  8: 2019-02-15 2019-03-02  O-I-J-E          O          I          J          E
+##  9: 2018-11-26 2018-12-17  G-D-K-W          G          D          K          W
+## 10: 2018-11-11 2018-11-19  V-Z-O-B          V          Z          O          B</code></pre>
+</div>
+<div id="拆分一列到多行" class="section level3">
+<h3>拆分一列到多行</h3>
+<pre class="r"><code>dt[, .(
+  Start_Date = Start_Date,
+  End_Date = End_Date,
+  Category = unlist(strsplit(Category, split = &quot;-&quot;))
+)]</code></pre>
+<pre><code>##     Start_Date   End_Date Category
+##  1: 2019-05-01 2019-06-01        Q
+##  2: 2019-08-04 2019-08-09        Y
+##  3: 2019-07-05 2019-08-14        M
+##  4: 2019-07-04 2019-07-05        V
+##  5: 2019-04-27 2019-05-10        E
+##  6: 2019-04-26 2019-05-20        E
+##  7: 2019-02-13 2019-02-16        E
+##  8: 2019-02-15 2019-03-02        H
+##  9: 2018-11-26 2018-12-17        A
+## 10: 2018-11-11 2018-11-19        N
+## 11: 2019-05-01 2019-06-01        T
+## 12: 2019-08-04 2019-08-09        D
+## 13: 2019-07-05 2019-08-14        J
+## 14: 2019-07-04 2019-07-05        T
+## 15: 2019-04-27 2019-05-10        B
+## 16: 2019-04-26 2019-05-20        X
+## 17: 2019-02-13 2019-02-16        D
+## 18: 2019-02-15 2019-03-02        R
+## 19: 2018-11-26 2018-12-17        H
+## 20: 2018-11-11 2018-11-19        Z
+## 21: 2019-05-01 2019-06-01        R
+## 22: 2019-08-04 2019-08-09        O
+## 23: 2019-07-05 2019-08-14        C
+## 24: 2019-07-04 2019-07-05        R
+## 25: 2019-04-27 2019-05-10        Z
+## 26: 2019-04-26 2019-05-20        C
+## 27: 2019-02-13 2019-02-16        A
+## 28: 2019-02-15 2019-03-02        M
+## 29: 2018-11-26 2018-12-17        O
+## 30: 2018-11-11 2018-11-19        I
+## 31: 2019-05-01 2019-06-01        J
+## 32: 2019-08-04 2019-08-09        E
+## 33: 2019-07-05 2019-08-14        G
+## 34: 2019-07-04 2019-07-05        D
+## 35: 2019-04-27 2019-05-10        K
+## 36: 2019-04-26 2019-05-20        W
+## 37: 2019-02-13 2019-02-16        V
+## 38: 2019-02-15 2019-03-02        Z
+## 39: 2018-11-26 2018-12-17        O
+## 40: 2018-11-11 2018-11-19        B
+##     Start_Date   End_Date Category</code></pre>
+</div>
+<div id="根据两列生成行多见于日期的起始" class="section level3">
+<h3>根据两列生成行（多见于日期的起始)</h3>
+<pre class="r"><code>dt[, .(
+  Start_Date = Start_Date,
+  End_Date = End_Date,
+  Date = seq.Date(Start_Date, End_Date, by = &quot;day&quot;),
+  Category = Category
+),
+by = 1:nrow(dt)
+]</code></pre>
+<pre><code>##      nrow Start_Date   End_Date       Date Category
+##   1:    1 2019-05-01 2019-06-01 2019-05-01  Q-Y-M-V
+##   2:    1 2019-05-01 2019-06-01 2019-05-02  Q-Y-M-V
+##   3:    1 2019-05-01 2019-06-01 2019-05-03  Q-Y-M-V
+##   4:    1 2019-05-01 2019-06-01 2019-05-04  Q-Y-M-V
+##   5:    1 2019-05-01 2019-06-01 2019-05-05  Q-Y-M-V
+##  ---                                               
+## 167:   10 2018-11-11 2018-11-19 2018-11-15  V-Z-O-B
+## 168:   10 2018-11-11 2018-11-19 2018-11-16  V-Z-O-B
+## 169:   10 2018-11-11 2018-11-19 2018-11-17  V-Z-O-B
+## 170:   10 2018-11-11 2018-11-19 2018-11-18  V-Z-O-B
+## 171:   10 2018-11-11 2018-11-19 2018-11-19  V-Z-O-B</code></pre>
+</div>
+<div id="多列合并" class="section level3">
+<h3>多列合并</h3>
+<pre class="r"><code>dt[, .(all_category = do.call(paste, c(.SD, sep = &quot;-&quot;))), .SDcols = patterns(&quot;\\d$&quot;)]</code></pre>
+<pre><code>##     all_category
+##  1:      Q-Y-M-V
+##  2:      E-E-E-H
+##  3:      A-N-T-D
+##  4:      J-T-B-X
+##  5:      D-R-H-Z
+##  6:      R-O-C-R
+##  7:      Z-C-A-M
+##  8:      O-I-J-E
+##  9:      G-D-K-W
+## 10:      V-Z-O-B</code></pre>
+<p>还可以用于多列相加，相乘等。</p>
+</div>
