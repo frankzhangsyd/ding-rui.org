@@ -6,7 +6,7 @@ disable_comments: true
 
 # 章丁睿
 
-[English Viate](/en/vitae/)
+[English Vitae](/en/vitae/)
 
 ## 联系方式
 电子邮件: <zhang@ding-rui.org>  
