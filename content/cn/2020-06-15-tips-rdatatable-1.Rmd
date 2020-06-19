@@ -5,13 +5,22 @@ date: '2020-06-15'
 slug: tips-rdatatable-1
 categories: []
 tags: []
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 目前来说，在R里面manipulate data主要有两个流派，[data.table](https://github.com/Rdatatable/data.table) 和包括 [dplyr](https://dplyr.tidyverse.org/index.html)、[tidyr](https://tidyr.tidyverse.org/)等的[tidyverse](https://www.tidyverse.org/)
 
 我个人来说是比较偏向于使用`data.table`的。其语法，性能，稳定性都优于`tidyverse` (一家之言见笑了)。本系列将分享一些个人的小技巧，解释不会很多，只是作为自己的一个future reference。
 
-### 导入 data.table
+# 系列文章   
+[R data.table的几个小技巧（一）](/cn/2020/06/tips-rdatatable-1)   
+<!-- [R data.table的几个小技巧（二）](/cn/2020/06/tips-rdatatable-2)    -->
+
+# 本期内容 
+
+## 导入 data.table
 ```{r library-call, echo=TRUE,results='hide'}
 library(data.table)
 ```
@@ -19,7 +28,7 @@ library(data.table)
 library(knitr)
 ```
 
-### 创建example data
+## 创建example data
 ```{r exampledata}
 dt <- data.table(
   Start_Date = as.Date(c(
@@ -44,6 +53,8 @@ dt <- data.table(
 ```{r echo=FALSE}
 kable(dt)
 ```
+
+## 实际操作
 
 ### 拆分一列到多列
 

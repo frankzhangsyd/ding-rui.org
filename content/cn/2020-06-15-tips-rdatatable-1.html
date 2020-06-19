@@ -5,18 +5,43 @@ date: '2020-06-15'
 slug: tips-rdatatable-1
 categories: []
 tags: []
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#系列文章">系列文章</a></li>
+<li><a href="#本期内容">本期内容</a><ul>
+<li><a href="#导入-data.table">导入 data.table</a></li>
+<li><a href="#创建example-data">创建example data</a></li>
+<li><a href="#实际操作">实际操作</a><ul>
+<li><a href="#拆分一列到多列">拆分一列到多列</a></li>
+<li><a href="#拆分一列到多行">拆分一列到多行</a></li>
+<li><a href="#根据两列生成行多见于日期的起始">根据两列生成行（多见于日期的起始)</a></li>
+<li><a href="#多列合并">多列合并</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
 
 <p>目前来说，在R里面manipulate data主要有两个流派，<a href="https://github.com/Rdatatable/data.table">data.table</a> 和包括 <a href="https://dplyr.tidyverse.org/index.html">dplyr</a>、<a href="https://tidyr.tidyverse.org/">tidyr</a>等的<a href="https://www.tidyverse.org/">tidyverse</a></p>
 <p>我个人来说是比较偏向于使用<code>data.table</code>的。其语法，性能，稳定性都优于<code>tidyverse</code> (一家之言见笑了)。本系列将分享一些个人的小技巧，解释不会很多，只是作为自己的一个future reference。</p>
-<div id="导入-data.table" class="section level3">
-<h3>导入 data.table</h3>
+<div id="系列文章" class="section level1">
+<h1>系列文章</h1>
+<p><a href="/cn/2020/06/tips-rdatatable-1">R data.table的几个小技巧（一）</a><br />
+<!-- [R data.table的几个小技巧（二）](/cn/2020/06/tips-rdatatable-2)    --></p>
+</div>
+<div id="本期内容" class="section level1">
+<h1>本期内容</h1>
+<div id="导入-data.table" class="section level2">
+<h2>导入 data.table</h2>
 <pre class="r"><code>library(data.table)</code></pre>
 </div>
-<div id="创建example-data" class="section level3">
-<h3>创建example data</h3>
+<div id="创建example-data" class="section level2">
+<h2>创建example data</h2>
 <pre class="r"><code>dt &lt;- data.table(
   Start_Date = as.Date(c(
     &quot;2019-05-01&quot;, &quot;2019-08-04&quot;, &quot;2019-07-05&quot;,
@@ -98,6 +123,8 @@ tags: []
 </tbody>
 </table>
 </div>
+<div id="实际操作" class="section level2">
+<h2>实际操作</h2>
 <div id="拆分一列到多列" class="section level3">
 <h3>拆分一列到多列</h3>
 <pre class="r"><code>dt[, paste0(&quot;Category_&quot;, 1:4) := tstrsplit(Category, split = &quot;-&quot;)][]</code></pre>
@@ -201,4 +228,6 @@ by = 1:nrow(dt)
 ##  9:      G-D-K-W
 ## 10:      V-Z-O-B</code></pre>
 <p>还可以用于多列相加，相乘等。</p>
+</div>
+</div>
 </div>
