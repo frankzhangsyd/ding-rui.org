@@ -1,0 +1,278 @@
+---
+title: R data.table的几个小技巧（二）
+author: Frank
+date: '2020-06-19'
+slug: tips-rdatatable-2
+categories: []
+tags: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#系列文章">系列文章</a></li>
+<li><a href="#本期内容">本期内容</a><ul>
+<li><a href="#导入-data.table">导入 data.table</a></li>
+<li><a href="#创建example-data">创建example data</a><ul>
+<li><a href="#filter多列">Filter多列</a></li>
+<li><a href="#cbind">cbind</a></li>
+<li><a href="#生成多列">生成多列</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+<p>首先再次说明一下，本系列只包括一些个人的小技巧，一些比较简单的应用就不再赘述了。</p>
+<div id="系列文章" class="section level1">
+<h1>系列文章</h1>
+<p><a href="/cn/2020/06/tips-rdatatable-1">R data.table的几个小技巧（一）</a><br />
+<a href="/cn/2020/06/tips-rdatatable-2">R data.table的几个小技巧（二）</a></p>
+</div>
+<div id="本期内容" class="section level1">
+<h1>本期内容</h1>
+<div id="导入-data.table" class="section level2">
+<h2>导入 data.table</h2>
+<pre class="r"><code>library(data.table)</code></pre>
+</div>
+<div id="创建example-data" class="section level2">
+<h2>创建example data</h2>
+<pre class="r"><code>set.seed(42)
+dt &lt;- data.table(
+  A1 = sample(1:100,10),
+  A2 = sample(1:100,10),
+  A3 = sample(1:100,10),
+  B1 = sample(1:100,10),
+  B2 = sample(1:100,10),
+  B3 = sample(1:100,10),
+  C  = sample(1:100,10)
+)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">A1</th>
+<th align="right">A2</th>
+<th align="right">A3</th>
+<th align="right">B1</th>
+<th align="right">B2</th>
+<th align="right">B3</th>
+<th align="right">C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">49</td>
+<td align="right">37</td>
+<td align="right">34</td>
+<td align="right">58</td>
+<td align="right">99</td>
+<td align="right">2</td>
+<td align="right">84</td>
+</tr>
+<tr class="even">
+<td align="right">65</td>
+<td align="right">20</td>
+<td align="right">92</td>
+<td align="right">8</td>
+<td align="right">88</td>
+<td align="right">58</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+<td align="right">26</td>
+<td align="right">3</td>
+<td align="right">36</td>
+<td align="right">87</td>
+<td align="right">10</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="right">74</td>
+<td align="right">3</td>
+<td align="right">58</td>
+<td align="right">68</td>
+<td align="right">49</td>
+<td align="right">40</td>
+<td align="right">93</td>
+</tr>
+<tr class="odd">
+<td align="right">18</td>
+<td align="right">41</td>
+<td align="right">42</td>
+<td align="right">86</td>
+<td align="right">26</td>
+<td align="right">5</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="right">100</td>
+<td align="right">89</td>
+<td align="right">24</td>
+<td align="right">18</td>
+<td align="right">6</td>
+<td align="right">33</td>
+<td align="right">92</td>
+</tr>
+<tr class="odd">
+<td align="right">47</td>
+<td align="right">27</td>
+<td align="right">30</td>
+<td align="right">92</td>
+<td align="right">95</td>
+<td align="right">49</td>
+<td align="right">69</td>
+</tr>
+<tr class="even">
+<td align="right">24</td>
+<td align="right">36</td>
+<td align="right">43</td>
+<td align="right">69</td>
+<td align="right">2</td>
+<td align="right">73</td>
+<td align="right">95</td>
+</tr>
+<tr class="odd">
+<td align="right">71</td>
+<td align="right">5</td>
+<td align="right">15</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">29</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">89</td>
+<td align="right">84</td>
+<td align="right">22</td>
+<td align="right">50</td>
+<td align="right">21</td>
+<td align="right">76</td>
+<td align="right">82</td>
+</tr>
+</tbody>
+</table>
+<div id="filter多列" class="section level3">
+<h3>Filter多列</h3>
+<div id="所有列都要大于20" class="section level4">
+<h4>所有列都要大于20</h4>
+<pre class="r"><code># 当有NA时注意使用 na.rm = TRUE
+dt[rowMeans(dt&gt;20)==1]</code></pre>
+<pre><code>##    A1 A2 A3 B1 B2 B3  C
+## 1: 47 27 30 92 95 49 69
+## 2: 89 84 22 50 21 76 82</code></pre>
+</div>
+<div id="任意列90" class="section level4">
+<h4>任意列&gt;90</h4>
+<pre class="r"><code># 当有NA时注意使用 na.rm = TRUE
+dt[rowSums(dt&gt;90)&gt;0]</code></pre>
+<pre><code>##     A1 A2 A3 B1 B2 B3  C
+## 1:  49 37 34 58 99  2 84
+## 2:  65 20 92  8 88 58  9
+## 3:  74  3 58 68 49 40 93
+## 4: 100 89 24 18  6 33 92
+## 5:  47 27 30 92 95 49 69
+## 6:  24 36 43 69  2 73 95</code></pre>
+</div>
+<div id="所有列除了c-c" class="section level4">
+<h4>所有列（除了C）&gt; C</h4>
+<pre class="r"><code>dt[dt[,Reduce(&quot;&amp;&quot;,lapply(.SD,&quot;&gt;&quot;,C)),.SDcols = !c(&quot;C&quot;)]]</code></pre>
+<pre><code>##    A1 A2 A3 B1 B2 B3 C
+## 1: 71  5 15  4  3 29 2</code></pre>
+</div>
+<div id="任意列除了c-c" class="section level4">
+<h4>任意列（除了C）&gt; C</h4>
+<pre class="r"><code>dt[dt[,Reduce(&quot;|&quot;,lapply(.SD,&quot;&gt;&quot;,C)),.SDcols = !c(&quot;C&quot;)]]</code></pre>
+<pre><code>##     A1 A2 A3 B1 B2 B3  C
+## 1:  49 37 34 58 99  2 84
+## 2:  65 20 92  8 88 58  9
+## 3:  25 26  3 36 87 10 35
+## 4:  18 41 42 86 26  5 16
+## 5: 100 89 24 18  6 33 92
+## 6:  47 27 30 92 95 49 69
+## 7:  71  5 15  4  3 29  2
+## 8:  89 84 22 50 21 76 82</code></pre>
+</div>
+</div>
+<div id="cbind" class="section level3">
+<h3>cbind</h3>
+<div id="base-r" class="section level4">
+<h4>Base R</h4>
+<pre class="r"><code>dt2 &lt;- copy(dt)
+
+# base R
+cbind(dt,dt2)</code></pre>
+<pre><code>##      A1 A2 A3 B1 B2 B3  C  A1 A2 A3 B1 B2 B3  C
+##  1:  49 37 34 58 99  2 84  49 37 34 58 99  2 84
+##  2:  65 20 92  8 88 58  9  65 20 92  8 88 58  9
+##  3:  25 26  3 36 87 10 35  25 26  3 36 87 10 35
+##  4:  74  3 58 68 49 40 93  74  3 58 68 49 40 93
+##  5:  18 41 42 86 26  5 16  18 41 42 86 26  5 16
+##  6: 100 89 24 18  6 33 92 100 89 24 18  6 33 92
+##  7:  47 27 30 92 95 49 69  47 27 30 92 95 49 69
+##  8:  24 36 43 69  2 73 95  24 36 43 69  2 73 95
+##  9:  71  5 15  4  3 29  2  71  5 15  4  3 29  2
+## 10:  89 84 22 50 21 76 82  89 84 22 50 21 76 82</code></pre>
+</div>
+<div id="data.table-way" class="section level4">
+<h4>data.table way</h4>
+<pre class="r"><code>setDT(unlist(list(dt,dt2),recursive = FALSE),check.names = TRUE)[]</code></pre>
+<pre><code>##      A1 A2 A3 B1 B2 B3  C A1.1 A2.1 A3.1 B1.1 B2.1 B3.1 C.1
+##  1:  49 37 34 58 99  2 84   49   37   34   58   99    2  84
+##  2:  65 20 92  8 88 58  9   65   20   92    8   88   58   9
+##  3:  25 26  3 36 87 10 35   25   26    3   36   87   10  35
+##  4:  74  3 58 68 49 40 93   74    3   58   68   49   40  93
+##  5:  18 41 42 86 26  5 16   18   41   42   86   26    5  16
+##  6: 100 89 24 18  6 33 92  100   89   24   18    6   33  92
+##  7:  47 27 30 92 95 49 69   47   27   30   92   95   49  69
+##  8:  24 36 43 69  2 73 95   24   36   43   69    2   73  95
+##  9:  71  5 15  4  3 29  2   71    5   15    4    3   29   2
+## 10:  89 84 22 50 21 76 82   89   84   22   50   21   76  82</code></pre>
+</div>
+</div>
+<div id="生成多列" class="section level3">
+<h3>生成多列</h3>
+<div id="使用set" class="section level4">
+<h4>使用set</h4>
+<pre class="r"><code>#注意区别于lapply使用的场景
+
+for (i in 1:3) {
+  set(dt2,j = paste0(&quot;diff&quot;,&quot;_&quot;,i),value = dt[[paste0(&quot;A&quot;,i)]] - dt[[paste0(&quot;B&quot;,i)]])
+}
+dt2</code></pre>
+<pre><code>##      A1 A2 A3 B1 B2 B3  C diff_1 diff_2 diff_3
+##  1:  49 37 34 58 99  2 84     -9    -62     32
+##  2:  65 20 92  8 88 58  9     57    -68     34
+##  3:  25 26  3 36 87 10 35    -11    -61     -7
+##  4:  74  3 58 68 49 40 93      6    -46     18
+##  5:  18 41 42 86 26  5 16    -68     15     37
+##  6: 100 89 24 18  6 33 92     82     83     -9
+##  7:  47 27 30 92 95 49 69    -45    -68    -19
+##  8:  24 36 43 69  2 73 95    -45     34    -30
+##  9:  71  5 15  4  3 29  2     67      2    -14
+## 10:  89 84 22 50 21 76 82     39     63    -54</code></pre>
+</div>
+<div id="使用map" class="section level4">
+<h4>使用Map</h4>
+<pre class="r"><code>A_cols &lt;- grep(&quot;A&quot;,names(dt),value = TRUE)
+B_cols &lt;- grep(&quot;B&quot;,names(dt),value = TRUE)
+new_diff_cols &lt;- paste0(&quot;diff&quot;,&quot;_&quot;,1:3)
+
+dt2[,(new_diff_cols) := Map(&quot;-&quot;,mget(A_cols),mget(B_cols))][]</code></pre>
+<pre><code>##      A1 A2 A3 B1 B2 B3  C diff_1 diff_2 diff_3
+##  1:  49 37 34 58 99  2 84     -9    -62     32
+##  2:  65 20 92  8 88 58  9     57    -68     34
+##  3:  25 26  3 36 87 10 35    -11    -61     -7
+##  4:  74  3 58 68 49 40 93      6    -46     18
+##  5:  18 41 42 86 26  5 16    -68     15     37
+##  6: 100 89 24 18  6 33 92     82     83     -9
+##  7:  47 27 30 92 95 49 69    -45    -68    -19
+##  8:  24 36 43 69  2 73 95    -45     34    -30
+##  9:  71  5 15  4  3 29  2     67      2    -14
+## 10:  89 84 22 50 21 76 82     39     63    -54</code></pre>
+</div>
+</div>
+</div>
+</div>

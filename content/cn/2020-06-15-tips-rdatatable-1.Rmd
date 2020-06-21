@@ -16,7 +16,7 @@ output:
 
 # 系列文章   
 [R data.table的几个小技巧（一）](/cn/2020/06/tips-rdatatable-1)   
-<!-- [R data.table的几个小技巧（二）](/cn/2020/06/tips-rdatatable-2)    -->
+[R data.table的几个小技巧（二）](/cn/2020/06/tips-rdatatable-2)
 
 # 本期内容 
 
