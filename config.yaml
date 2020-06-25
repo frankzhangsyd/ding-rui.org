@@ -39,7 +39,7 @@ menu:
       url: "/en/"
       weight: 3
     - name: "Vitae"
-      url: "/en/vitae/"
+      url: "https://www.ding-rui.org/vitae"
       weight: 4
     - name: "中文"
       url: "/cn/"

@@ -4,7 +4,7 @@ slug: "en/about"
 disable_comments: true
 ---
 
-My name is Dingrui(Frank) Zhang. You can know more about me on the [homepage](/) and my [vitae](../vitae/). This blog is about data science, R, VBA, Python, and fun, with a special focus on R. 
+My name is Dingrui(Frank) Zhang. You can know more about me on the [homepage](/) and my [vitae](https://www.ding-rui.org/vitae). This blog is about data science, R, VBA, Python, and fun, with a special focus on R. 
 
 ## Contact me
 
