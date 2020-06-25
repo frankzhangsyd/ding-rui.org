@@ -1,1 +1,2 @@
-/vitae/*              https://frankzhang-vitae.netlify.app/:splat              200
+/vitae             https://frankzhang-vitae.netlify.app              200
+/index_files/*     https://frankzhang-vitae.netlify.app/:splat       200
