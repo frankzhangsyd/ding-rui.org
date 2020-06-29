@@ -11,7 +11,3 @@
 <script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 <script async src="//yihui.org/js/center-img.js"></script>
-
-{{ range .Site.Params.customJS }}
-<script async src="{{ . | relURL }}"></script>
-{{ end }}

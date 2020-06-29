@@ -66,8 +66,7 @@ params:
   highlightjsCDN : "//cdnjs.cloudflare.com/ajax/libs"
   highlightjsLang : ["r", "yaml", "tex"]
   highlightjsTheme : "github"
-  customJS:
-    - "js/external-link.js"
+  
   logo:
     en: 
       img: "/images/logo.png"
