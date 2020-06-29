@@ -1,1 +1,3 @@
 /vitae             https://frankzhang-vitae.netlify.app              200
+/static/*          https://frankzhang-vitae.netlify.app/static/:splat              200
+
