@@ -1,6 +1,6 @@
 /vitae             https://frankzhang-vitae.netlify.app              200
-/static/index_files/*          https://frankzhang-vitae.netlify.app/index_files/:splat              200!
-/static/styles_pdf.css          https://frankzhang-vitae.netlify.app/styles_pdf.css              200!
-/static/custom_resume.css          https://frankzhang-vitae.netlify.app/custom_resume.css             200!
-/static/styles_html.css          https://frankzhang-vitae.netlify.app/styles_html.css             200!
+/index_files/*          https://frankzhang-vitae.netlify.app/index_files/:splat              200!
+/styles_pdf.css          https://frankzhang-vitae.netlify.app/styles_pdf.css              200!
+/custom_resume.css          https://frankzhang-vitae.netlify.app/custom_resume.css             200!
+/styles_html.css          https://frankzhang-vitae.netlify.app/styles_html.css             200!
 
