@@ -1,0 +1,37 @@
+---
+title: 浅论如何写出高效的R代码
+author: Frank
+date: '2020-06-26'
+slug: how-to-write-good-r-code
+categories: []
+tags: []
+---
+
+开篇立论，什么是高效的R代码？
+
+我个人认为有4个方面：
+1. 开发时的高效。即开发所用的时间以及复杂程度？
+2. 代码运行时的高效。比如是否健壮？运行速度如何？有没有考虑到input是向量的可能？
+3. 后续维护，debug是否方便？
+4. 团队协作。注释以及逻辑是否清晰？
+
+由于我是偏向于商业分析的背景，所以想表达的一些东西可能不太适用于科研或者学术领域。欢迎大家来指点。
+
+由于这个话题很大，感觉自己水平有限，于是就准备些几个DON'T DO 和 DO吧
+
+## DONT'DO 1 - Growing Vector
+
+我觉得这可能是很多人总说R语言很慢的罪魁祸首吧。我主要指的是如下的一种行为
+
+```{r,eval=FALSE}
+result <- vector()
+
+for (variable in vector) {
+  y <- DO SOME CALCULATIONS
+  result <- c(result,y)
+  
+}
+```
+
+
+
