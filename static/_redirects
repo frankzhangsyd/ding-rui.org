@@ -1,3 +1,6 @@
 /vitae             https://frankzhang-vitae.netlify.app              200
-/static/*          https://frankzhang-vitae.netlify.app/static/:splat              200
+/static/index_files/*          https://frankzhang-vitae.netlify.app/static/index_files/:splat              200!
+/static/styles_pdf.css          https://frankzhang-vitae.netlify.app/static/styles_pdf.css              200!
+/static/custom_resume.css          https://frankzhang-vitae.netlify.app/static/custom_resume.css             200!
+/static/styles_html.css          https://frankzhang-vitae.netlify.app/static/styles_html.css             200!
 
