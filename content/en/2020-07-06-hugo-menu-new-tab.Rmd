@@ -1,0 +1,56 @@
+---
+title: A Easy Way of Setting Opening Link in New Tab in Hugo Menu
+author: Frank
+date: '2020-07-06'
+slug: hugo-menu-new-tab
+categories: []
+tags: []
+---
+
+Recently, I encountered a minor problem. I would like to opening in a new tab when clicking the "Vitae" button in the menu of this website.
+
+It's fairly easy to set this up in HTML. You just need to set
+
+```html
+<a href="https://www.ding-rui.org/vitae" target="_blank">Vitae  </a>
+```
+
+However, it is a problem when you are using Hugo. Hugo itself doesn't have an option to set the `target` attribute for a specific menu. (Although there was a [pull request](https://github.com/gohugoio/hugo/pull/4400) addressing this issue)
+
+Now I found that the easiest way might be modifying the template of Hugo.
+
+I add the following code to my `menu.html`
+
+```html
+<li{{ if eq .URL $currentPage.RelPermalink }} class="active"{{ end }}><a href="{{ .URL }}"{{ if eq .Name "Vitae"}} target="_blank" {{end}} >{{ .Name }}  </a></li>
+```
+
+More specifically, the key is this line. When the page name is "Vitae", it will add `target="_blank"` to the attribute.
+
+```html
+{{ if eq .Name "Vitae"}} target="_blank" {{end}}
+```
+
+My idea is that my [vitae](https://www.ding-rui.org/vitae) is on a separate layout, which doesn't have the menu bar. I would like people can stay on my blog if they open my vitae. This is a feature for my potential employers or someone want to learn more about me. Since my vitae has less information comparing with my blogs.
+
+Generally, it is not a good idea to force user to open link in a new tab. Unless the link refer to an outside page or you have a specific reason like me.
+
+Always remember, if you are stuck on making HTML or Markdown work for some web page issues, Javascript is your best friend. Below is the JS script I am using on this site to open any outside website(where I have to use abosulte reference) in a new tab.
+
+```javascript
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+```
+
+
+
+
+
+
+

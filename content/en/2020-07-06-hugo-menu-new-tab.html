@@ -1,0 +1,31 @@
+---
+title: A Easy Way of Setting Opening Link in New Tab in Hugo Menu
+author: Frank
+date: '2020-07-06'
+slug: hugo-menu-new-tab
+categories: []
+tags: []
+---
+
+
+
+<p>Recently, I encountered a minor problem. I would like to opening in a new tab when clicking the “Vitae” button in the menu of this website.</p>
+<p>It’s fairly easy to set this up in HTML. You just need to set</p>
+<pre class="html"><code>&lt;a href=&quot;https://www.ding-rui.org/vitae&quot; target=&quot;_blank&quot;&gt;Vitae  &lt;/a&gt;</code></pre>
+<p>However, it is a problem when you are using Hugo. Hugo itself doesn’t have an option to set the <code>target</code> attribute for a specific menu. (Although there was a <a href="https://github.com/gohugoio/hugo/pull/4400">pull request</a> addressing this issue)</p>
+<p>Now I found that the easiest way might be modifying the template of Hugo.</p>
+<p>I add the following code to my <code>menu.html</code></p>
+<pre class="html"><code>&lt;li{{ if eq .URL $currentPage.RelPermalink }} class=&quot;active&quot;{{ end }}&gt;&lt;a href=&quot;{{ .URL }}&quot;{{ if eq .Name &quot;Vitae&quot;}} target=&quot;_blank&quot; {{end}} &gt;{{ .Name }}  &lt;/a&gt;&lt;/li&gt;</code></pre>
+<p>More specifically, the key is this line. When the page name is “Vitae”, it will add <code>target="_blank"</code> to the attribute.</p>
+<pre class="html"><code>{{ if eq .Name &quot;Vitae&quot;}} target=&quot;_blank&quot; {{end}}</code></pre>
+<p>My idea is that my <a href="https://www.ding-rui.org/vitae">vitae</a> is on a separate layout, which doesn’t have the menu bar. I would like people can stay on my blog if they open my vitae. This is a feature for my potential employers or someone want to learn more about me. Since my vitae has less information comparing with my blogs.</p>
+<p>Generally, it is not a good idea to force user to open link in a new tab. Unless the link refer to an outside page or you have a specific reason like me.</p>
+<p>Always remember, if you are stuck on making HTML or Markdown work for some web page issues, Javascript is your best friend. Below is the JS script I am using on this site to open any outside website(where I have to use abosulte reference) in a new tab.</p>
+<pre class="javascript"><code>(function() {
+  var links = document.getElementsByTagName(&#39;a&#39;);
+  for (var i = 0; i &lt; links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute(&#39;href&#39;))) {
+      links[i].target = &#39;_blank&#39;;
+    }
+  }
+})();</code></pre>
