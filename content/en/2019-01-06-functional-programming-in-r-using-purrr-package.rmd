@@ -1,13 +1,16 @@
 ---
 title: Functional Programming in R (Using purrr Package)
 author: Frank
-date: '2019-01-06'
-slug: purrr
+date: '2020-06-15'
+slug: purrr-intro
 categories: []
 tags: []
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
-I wrote a [small article](https://dingruizhang.me/2018/07/25/r-scripts-for-combining-excels-file) about **purrr** packge before.
+I wrote a [small article](/en/2018/08/r-scripts-for-combining-excels-files) about **purrr** package before.
 
 Now I think it's time to write a better article introducing the **purrr** package.
 
@@ -36,7 +39,7 @@ map(test_list,mean)
 #> $c
 #> [1] 4
 ```
-<!--more-->
+
 **map** takes 3 arguments which are **.x**,**.f**,**...**.
 
 **.x** is the list or vector you want to apply function on.  

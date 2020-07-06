@@ -1,0 +1,142 @@
+---
+title: Functional Programming in R (Using purrr Package)
+author: Frank
+date: '2020-06-15'
+slug: purrr-intro
+categories: []
+tags: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#map-family">Map Family</a></li>
+<li><a href="#manipulate-functions">Manipulate Functions</a></li>
+</ul>
+</div>
+
+<p>I wrote a <a href="/en/2018/08/r-scripts-for-combining-excels-files">small article</a> about <strong>purrr</strong> package before.</p>
+<p>Now I think it’s time to write a better article introducing the <strong>purrr</strong> package.</p>
+<p>You can find the official website through this <a href="https://purrr.tidyverse.org">link</a>.</p>
+<div id="map-family" class="section level2">
+<h2>Map Family</h2>
+<p>The <strong>map</strong> family is used to apply function or functions over a list or vector.</p>
+<p>The “primary” function is the <strong>map</strong> function.</p>
+<pre class="r"><code>library(purrr)
+#Remember: map always return a list rather than a vector
+test_list &lt;- list(a=c(1,2,3),
+                  b=c(2,3,4),
+                  c=c(3,4,5))
+
+map(test_list,mean)
+#&gt; $a
+#&gt; [1] 2
+#&gt; 
+#&gt; $b
+#&gt; [1] 3
+#&gt; 
+#&gt; $c
+#&gt; [1] 4</code></pre>
+<p><strong>map</strong> takes 3 arguments which are <strong>.x</strong>,<strong>.f</strong>,<strong>…</strong>.</p>
+<p><strong>.x</strong> is the list or vector you want to apply function on.</p>
+<p><strong>.f</strong> is the function you want to apply.</p>
+<p><strong>…</strong> is the arguments you want to specify in <strong>.f</strong>.</p>
+<pre class="r"><code>library(purrr)
+test_list &lt;- list(a=c(1,2,NULL),
+                  b=c(2,3,4),
+                  c=c(3,4,5))
+
+map(test_list,mean,na.rm=TRUE)
+#&gt; $a
+#&gt; [1] 1.5
+#&gt; 
+#&gt; $b
+#&gt; [1] 3
+#&gt; 
+#&gt; $c
+#&gt; [1] 4</code></pre>
+<p>Another good thing is that you can use lambda function in <strong>.f</strong> part. All you need to is:
+1. Add “~” before you lambda function
+2. Use “.x” in <strong>.f</strong> to specify the location.</p>
+<pre class="r"><code>library(purrr)
+test_list &lt;- list(a=c(1,2,3),
+                  b=c(2,3,4),
+                  c=c(3,4,5))
+
+map(test_list,~.x+5)
+#&gt; $a
+#&gt; [1] 6 7 8
+#&gt; 
+#&gt; $b
+#&gt; [1] 7 8 9
+#&gt; 
+#&gt; $c
+#&gt; [1]  8  9 10</code></pre>
+<p>Other <strong>map_</strong> functions are similar to <strong>map</strong>. You just need to specify the output type.</p>
+<pre class="r"><code>library(purrr)
+test_list &lt;- list(a=c(1,2,3),
+                  b=c(2,3,4),
+                  c=c(3,4,5))
+
+map_dbl(test_list,sum)
+#&gt;  a  b  c 
+#&gt;  6  9 12</code></pre>
+<p>Now it returns a vector rather than a list.</p>
+</div>
+<div id="manipulate-functions" class="section level2">
+<h2>Manipulate Functions</h2>
+<p>Another good thing in purrr is that you can manipulate functions. Yes, you can manupulate functions just as other objects in R!It is really fantastic.</p>
+<div id="create-function-from-lambda" class="section level5">
+<h5>Create Function From Lambda</h5>
+<p><strong>as_mapper</strong> enables you to create a function quickly and make your code cleaner and more readable.</p>
+<pre class="r"><code>library(purrr)
+new_fc &lt;- as_mapper(~(.x*100+1)/2)
+new_fc(1)
+#&gt; [1] 50.5</code></pre>
+</div>
+<div id="compose-function" class="section level5">
+<h5>Compose Function</h5>
+<p><strong>compose</strong> enables you to connect a function from other existing functions.</p>
+<pre class="r"><code>library(purrr)
+test_list &lt;- list(a=c(1,2,3),
+                  b=c(2,3,4),
+                  c=c(3,4,5))
+mutiply100 &lt;- as_mapper(~.x*100)
+
+mean_multiply100 &lt;- compose(mutiply100,mean)
+map_dbl(test_list,mean_multiply100)
+#&gt;   a   b   c 
+#&gt; 200 300 400</code></pre>
+<p>Please note the equivalent of <strong>compose(round,mean)</strong> is <strong>round(mean(x))</strong>. The order here is important.</p>
+</div>
+<div id="create-function-with-default-arguments" class="section level5">
+<h5>Create Function with Default Arguments</h5>
+<pre class="r"><code>library(purrr)
+my_mean &lt;- partial(mean,na.rm=TRUE)
+my_mean(c(1,2,3,NULL))
+#&gt; [1] 2</code></pre>
+<p>Now <strong>my_mean</strong> is the <strong>mean</strong> function with default argument to ignore all <strong>NULL</strong> in calculating mean value of a vector.</p>
+</div>
+<div id="negate-a-predicate-function" class="section level5">
+<h5>Negate a Predicate Function</h5>
+<p>Predicate Function is the function that returns a logical output like <strong>TRUE</strong> or <strong>FALSE</strong>.
+Such as <strong>is.numeric()</strong>,<strong>is.character()</strong>.</p>
+<p><strong>negate</strong> makes your life easy because you don’t need to write a second function!</p>
+<pre class="r"><code>
+library(purrr)
+test_list &lt;- list(a=c(1,2,0.5),
+                  b=c(2,3,4),
+                  c=c(3,4,5))
+mean_over_2 &lt;- as_mapper(~mean(.x)&gt;=2)
+mean_under_2 &lt;- negate(mean_over_2)
+map_lgl(test_list,mean_over_2)
+#&gt;     a     b     c 
+#&gt; FALSE  TRUE  TRUE
+map_lgl(test_list,mean_under_2)
+#&gt;     a     b     c 
+#&gt;  TRUE FALSE FALSE</code></pre>
+</div>
+</div>

@@ -10,8 +10,8 @@ tags: []
 I believe most of native English speakers even don't know what is a PTE. It is an English test for immigration or education purpose in Australia. So I will finish this passage in Chinese, since the intented readers are international students like me.
 
 老规矩，先放成绩单镇楼。
-![](https://dingruizhang.me/wp-content/uploads/2018/11/bad3d62ad50f4b2bdc40931c55695f9c.png)
-<!--more-->
+![](/cn/2018-11-02-pte-score-79-first-time_files/p1.png)
+
 总的来说，运气比较好。第一次就顺利通过了。
 ## 考前复习
 
@@ -20,17 +20,17 @@ I believe most of native English speakers even don't know what is a PTE. It is a
 
 ### 模考
 当你上完课，开始准备复习的时候，我个人建议第一件事就是取买个好一点的耳麦。这是我个人的沉痛教训。你们都知道[官方模考题](https://ptepractice.com/ "官方模考题")是要收费的，我第一次用了破耳机，结果模考成绩如图。
-![](https://dingruizhang.me/wp-content/uploads/2018/11/69c2d7bfb98db4a39ee276be890b48d1.png)
+![](/cn/2018-11-02-pte-score-79-first-time_files/p2.png)
 当时心里一惊，口语这么低是不是要死了。然后拿给一个教口语的小伙伴分析了一下，他说我的发言不可能是10分（也就是0分），估计是耳麦的问题。让我在做一套。于是我用了笔记本电脑，我想这个笔记本自带的麦克风应该没什么问题吧，结果这次模考还是一样的。
-![](https://dingruizhang.me/wp-content/uploads/2018/11/3a0b1af7b25870c5b69af4432142816d.png)
+![](/cn/2018-11-02-pte-score-79-first-time_files/p3.png)
 做之前我特地长了个心眼，口语部分我直接[录了屏](https://www.youtube.com/watch?v=y6OxncaouKU&t=126s "录了屏")（有兴趣的话可以点击链接去油土逼观看），结果发音还是10分，于是去咨询了一下Kevin老师，老师猜测还是麦克风的问题，然后建议我继续加强重音和连读。
 
 这次想明白了，还是得去弄个耳麦。于是就立马去officeworks买了个最便宜的[耳麦](https://www.officeworks.com.au/shop/officeworks/p/logitech-on-ear-headset-silver-h110-inlog4401 "耳麦")，有钱的话可以收一个和官方考试一样的耳机（大概60多刀？）然后又去做了第三次模考，这次终于有分数了。
-![](https://dingruizhang.me/wp-content/uploads/2018/11/40564a682db99fea086c817076e20748.png)
+![](/cn/2018-11-02-pte-score-79-first-time_files/p4.png)
 *你们感兴趣的话，可以关注一下模考上的日期。一般来说一个人的口语水平不会短短几天就发生这么大的改变的，所以这就更加说明了PTE考试是需要技巧的*
 
 这次做完之后，大概心里有底了。口语估计是没啥问题，后来想了想，流利度还是可以提高的。我做DI,RL的时候有点特地追求发音，结果弄巧成拙，反而流利度下降了。于是心一横，决定改变一下策略。除了RA，RS部分，别的部分稍微加快说的速度，保证不卡顿。然后重音重读再夸张一些（也就是读的大声些）。最后考试前几天又做了一套模考题，果然，和我想的没错，流利度是更容易提高的。这次流利度直接来到了满分，而发音只损失了两三分的样子，口语直接来到了85分（最后实际考试90分满分）这就说明对于我个人的情况来说，加强流利度并不会影响我的发音，这个我认为是因人而异。
-![](https://dingruizhang.me/wp-content/uploads/2018/11/45ab3139c864f1dc2cb7effd09ff6d6a.png)
+![](/cn/2018-11-02-pte-score-79-first-time_files/p5.png)
 *我的这个方法不见得适合每个人，我这次同样也录了屏，如果你对我这次口语85分的模考感兴趣，欢迎在下方留言评论或者邮件联系我，我会再上传到油土逼*
 
 所以我的建议是，在你的备考初期，就直接做一套模考题，尤其要注意口语的表现。看看自己的发音是多少分。我认为如果你的发音和我的一样，60,70分左右，就不用再纠结发音了，直接提高流利度，这肯定就没有问题了。
