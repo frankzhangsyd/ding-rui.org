@@ -1,0 +1,39 @@
+---
+title: Datacamp Courses
+author: Frank
+date: '2019-07-31'
+slug: datacamp-courses
+---
+
+I will stop using any products from Datacamp due to the unacceptable message from this company that you can get away with sexual assault and sexual harassment if you’re in a position of power.
+
+Certificates: (Last course was finished at 21 Jan 2019. 26 Courses were finished in total.)
+
+- [Working with the RStudio IDE (Part 1)](https://www.datacamp.com/statement-of-accomplishment/course/173a5a8fee87ce0eb02a79efd5fa707f0097a680)
+- [Introduction to R](https://www.datacamp.com/statement-of-accomplishment/course/2f8489ead8071e61fbafa319604b7d68936c4ece)
+- [Intermediate R](https://www.datacamp.com/statement-of-accomplishment/course/de032e02584bb104c852fd3b6d2255559638d3de)
+- [Introduction to the Tidyverse](https://www.datacamp.com/statement-of-accomplishment/course/b53a47083ab5d0764739cc6179b17118b3fe7725)
+- [Importing Data in R (Part 1)](https://www.datacamp.com/statement-of-accomplishment/course/ecd4ce06fd5095a6f0deae758d9f0cf16ad8e3d6)
+- [Importing Data in R (Part 2)](https://www.datacamp.com/statement-of-accomplishment/course/ea87ea61c399285bf75abf11a067e6d855a95565)
+- [Importing & Cleaning Data in R: Case Studies](https://www.datacamp.com/statement-of-accomplishment/course/bfe0c25a8adebfd91932215dc6d67c474cd02eff)
+- [Cleaning Data in R](https://www.datacamp.com/statement-of-accomplishment/course/a568d636faeab19d543ea4934cc839f293f2c8c3)
+- [Writing Functions in R](https://www.datacamp.com/statement-of-accomplishment/course/7bd0333d4f4fa1014023a801aba0cf8443e6d774)
+- [Data Manipulation in R with dplyr](https://www.datacamp.com/statement-of-accomplishment/course/8044784b05f3848ae0af575bef216c5d4dd175a0)
+- [Joining Data in R with dplyr](https://www.datacamp.com/statement-of-accomplishment/course/0efe3543fef9bdf371c300bbcae6dbc3849dbfb0)
+- [Intro to SQL for Data Science](https://www.datacamp.com/statement-of-accomplishment/course/b3424581f506faa712b208ece0163b9878cf1c77)
+- [Joining Data in PostgreSQL](https://www.datacamp.com/statement-of-accomplishment/course/00873bdddb1397b3cf31ec1afa5ba55541aade5f)
+- [Data Visualization with ggplot2 (Part 1)](https://www.datacamp.com/statement-of-accomplishment/course/f8406cf23dba0047d796316d306ea0c95266fbad)
+- [Working with Dates and Times in R](https://www.datacamp.com/statement-of-accomplishment/course/4a0bae85c2710f5456ce07350ea9fbcb6c1dfbc8)
+- [Introduction to Data](https://www.datacamp.com/statement-of-accomplishment/course/9e2e3bea73ab63ca90b35bb2b721942f218f7dd5)
+- [Exploratory Data Analysis](https://www.datacamp.com/statement-of-accomplishment/course/5eb33e36d78f3b37bbe37154cc7af640d1a497c3)
+- [Exploratory Data Analysis in R: Case Study](https://www.datacamp.com/statement-of-accomplishment/course/2e4d4f355a6bd4b69ed82554ce9a63bf3c938278)
+- [String Manipulation in R with stringr](https://www.datacamp.com/statement-of-accomplishment/course/a942216c51a7cd243e8a2e48a48b59d712829233)
+- [Foundations of Functional Programming with purrr](https://www.datacamp.com/statement-of-accomplishment/course/cdd0f751f5710230a7f28ffda94b367adf56692a)
+- [Working with Web Data in R](https://www.datacamp.com/statement-of-accomplishment/course/d90e771d154b06b661617811798eb5a2c53e7ab8)
+- [Reporting with R Markdown](https://www.datacamp.com/statement-of-accomplishment/course/e96e01af951a310f161e6e985c8a130fd35510cd)
+- [Intermediate Functional Programming with purrr](https://www.datacamp.com/statement-of-accomplishment/course/55ce56cf8876efa01bc75398fbe9ce73631a5de4)
+- [Data Manipulation in R with data.table](https://www.datacamp.com/statement-of-accomplishment/course/247f5ec0ad64fd02d16826d398648268bb4bef0a)
+- [Joining Data in R with data.table](https://www.datacamp.com/statement-of-accomplishment/course/0ed0fa5e8cf2561fb14ee47c1f83cc631a6f3960)
+
+
+
