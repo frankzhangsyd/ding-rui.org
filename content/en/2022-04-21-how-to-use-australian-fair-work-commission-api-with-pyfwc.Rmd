@@ -1,0 +1,183 @@
+---
+title: How to use Australian Fair Work Commission API in Python with pyfwc?
+author: Frank
+date: '2022-04-21'
+slug: how-to-use-australian-fair-work-commission-api-with-pyfwc
+categories: []
+tags: []
+---
+
+Australian Fair Work Commission recently publish their API for modern awards (https://uatdeveloper.fwc.gov.au/). I developed this python package [pyfwc](https://github.com/frankzhangsyd/pyfwc) as a wrapper to help use this API easily in python.
+
+# Pre-requirements
+1. Go to the website (https://uatdeveloper.fwc.gov.au/) and obtain a subscription key. You should be able to find it under the "profile" section of the website.
+2. Install the package by the following command `pip install pyfwc`
+
+# Usage
+
+```{python subscription key, include=FALSE}
+YOUR_SUBSCRIPTION_KEY = "5d37f1a91012490089e4a5ac698fd512"
+```
+
+Firstly, you need to import `FWCAPI` from the package and register an instance with your subscription key as below
+
+```{python}
+from pyfwc import FWCAPI
+fwc = FWCAPI(YOUR_SUBSCRIPTION_KEY)
+```
+
+All below functions would return a `pandas` dataframe.
+
+## Awards
+
+These 2 functions retrieve award related information.
+
+`get_awards` : get a list of awards based on given criteria
+
+```python
+# Get list of awards where it contains "mining" in the name
+fwc.get_awards(name = "mining")
+```
+```{python echo=FALSE}
+print(fwc.get_awards(name = "mining").to_markdown())
+```
+
+```python
+# Get list of awards where it contains "mining" and "black" in the name
+fwc.get_awards(name = "mining+black")
+```
+```{python echo=FALSE}
+print(fwc.get_awards(name = "mining+black").to_markdown())
+```
+
+`get_award` : get a specific award
+
+```python
+# Get award where its code is "MA000001"
+fwc.get_award(id_or_code='MA000001').head(3)
+```
+```{python echo=FALSE}
+print(fwc.get_award(id_or_code='MA000001').head(3).to_markdown())
+```
+
+## Classifications
+
+These 4 functions retrieve classifications related information.
+
+`get_classification` : get information for a specific classification in a specific award
+
+```python
+# Get classification "98" in award "MA000002"
+fwc.get_classification(id_or_code='MA000002',classification_fixed_id='98')
+```
+```{python echo=FALSE}
+print(fwc.get_classification(id_or_code='MA000002',classification_fixed_id='98').to_markdown())
+```
+
+`get_classifications` : get information for all classifications in a specific award
+
+```python
+# Get all classifications in award "MA000012"
+fwc.get_classifications(id_or_code='MA000012').head(3)
+```
+```{python echo=FALSE}
+print(fwc.get_classifications(id_or_code='MA000012').head(3).to_markdown())
+```
+
+`get_payrates` : get payrates(including historical) for all classifications in a specific award
+
+```python
+# Get all payrates in award "MA000001"
+fwc.get_payrates(id_or_code='MA000001').head(3)
+```
+```{python echo=FALSE}
+print(fwc.get_payrates(id_or_code='MA000001').head(3).to_markdown())
+```
+
+`get_current_payrate` : get current pay-rate for a specific classification in a specific award
+
+```python
+# Get a current payrate for classification "549" in award "MA000012"
+fwc.get_current_payrate(id_or_code='MA000012',classification_fixed_id='549')
+```
+```{python echo=FALSE}
+print(fwc.get_current_payrate(id_or_code='MA000012',classification_fixed_id='549').to_markdown())
+```
+
+## Penalities
+
+`get_penalties` : get all penalties in a specific award
+
+```python
+# Get all penalties in award "MA000012"
+fwc.get_penalties(id_or_code='MA000012').head(3)
+```
+```{python echo=FALSE}
+print(fwc.get_penalties(id_or_code='MA000012').head(3).to_markdown())
+```
+
+## Expense Allowances
+
+These 2 functions retrieve Expense Allowances related information.
+
+`get_expense_allowance` : get a specific expense allowance in a specific award
+
+```python
+# Get expense allowance "49" in award "MA000012"
+fwc.get_expense_allowance(id_or_code='MA000012',expense_allowance_fixed_id='49')
+```
+```{python echo=FALSE}
+print(fwc.get_expense_allowance(id_or_code='MA000012',expense_allowance_fixed_id='49').to_markdown())
+```
+
+`get_expense_allowances` : get all expense allowances in a specific award
+
+```python
+# Get all expense allowances in award "MA000012"
+fwc.get_expense_allowances(id_or_code='MA000012').head(3)
+```
+```{python echo=FALSE}
+print(fwc.get_expense_allowances(id_or_code='MA000012').head(3).to_markdown())
+```
+
+## Wage Allowances
+
+These 2 functions retrieve Wage Allowances related information.
+
+`get_wage_allowance` : get a specific wage allowance in a specific award
+
+```python
+# Get wage allowance "191" in award "MA000012"
+fwc.get_wage_allowance(id_or_code='MA000012',wage_allowance_fixed_id='191')
+```
+```{python echo=FALSE}
+print(fwc.get_wage_allowance(id_or_code='MA000012',wage_allowance_fixed_id='191').to_markdown())
+```
+
+`get_wage_allowances` : get all wage allowances in a specific award
+
+```python
+# Get all wage allowances in award "MA000012"
+fwc.get_wage_allowances(id_or_code='MA000012').head(3)
+```
+```{python echo=FALSE}
+print(fwc.get_wage_allowances(id_or_code='MA000012').head(3).to_markdown())
+```
+
+
+If you find any questions or have any suggestions, feel free to report on the [github](https://github.com/frankzhangsyd/pyfwc)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

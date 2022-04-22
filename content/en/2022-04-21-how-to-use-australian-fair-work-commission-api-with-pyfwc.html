@@ -1,0 +1,131 @@
+---
+title: How to use Australian Fair Work Commission API in Python with pyfwc?
+author: Frank
+date: '2022-04-21'
+slug: how-to-use-australian-fair-work-commission-api-with-pyfwc
+categories: []
+tags: []
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Australian Fair Work Commission recently publish their API for modern awards (<a href="https://uatdeveloper.fwc.gov.au/" class="uri">https://uatdeveloper.fwc.gov.au/</a>). I developed this python package <a href="https://github.com/frankzhangsyd/pyfwc">pyfwc</a> as a wrapper to help use this API easily in python.</p>
+<div id="pre-requirements" class="section level1">
+<h1>Pre-requirements</h1>
+<ol style="list-style-type: decimal">
+<li>Go to the website (<a href="https://uatdeveloper.fwc.gov.au/" class="uri">https://uatdeveloper.fwc.gov.au/</a>) and obtain a subscription key. You should be able to find it under the “profile” section of the website.</li>
+<li>Install the package by the following command <code>pip install pyfwc</code></li>
+</ol>
+</div>
+<div id="usage" class="section level1">
+<h1>Usage</h1>
+<p>Firstly, you need to import <code>FWCAPI</code> from the package and register an instance with your subscription key as below</p>
+<pre class="python"><code>from pyfwc import FWCAPI
+fwc = FWCAPI(YOUR_SUBSCRIPTION_KEY)</code></pre>
+<p>All below functions would return a <code>pandas</code> dataframe.</p>
+<div id="awards" class="section level2">
+<h2>Awards</h2>
+<p>These 2 functions retrieve award related information.</p>
+<p><code>get_awards</code> : get a list of awards based on given criteria</p>
+<pre class="python"><code># Get list of awards where it contains &quot;mining&quot; in the name
+fwc.get_awards(name = &quot;mining&quot;)</code></pre>
+<pre><code>## |    |   award_id |   award_fixed_id | code     | name                                  | award_operative_from      | award_operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|-----------:|-----------------:|:---------|:--------------------------------------|:--------------------------|:---------------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |       1132 |                1 | MA000001 | Black Coal Mining Industry Award 2020 | 2010-01-01T00:00:00+00:00 |                      |                3 | 2022-01-17T16:12:10+00:00 |             2021 |
+## |  1 |       1142 |               11 | MA000011 | Mining Industry Award 2020            | 2010-01-01T00:00:00+00:00 |                      |                2 | 2022-01-20T15:49:41+00:00 |             2021 |</code></pre>
+<pre class="python"><code># Get list of awards where it contains &quot;mining&quot; and &quot;black&quot; in the name
+fwc.get_awards(name = &quot;mining+black&quot;)</code></pre>
+<pre><code>## |    |   award_id |   award_fixed_id | code     | name                                  | award_operative_from      | award_operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|-----------:|-----------------:|:---------|:--------------------------------------|:--------------------------|:---------------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |       1132 |                1 | MA000001 | Black Coal Mining Industry Award 2020 | 2010-01-01T00:00:00+00:00 |                      |                3 | 2022-01-17T16:12:10+00:00 |             2021 |</code></pre>
+<p><code>get_award</code> : get a specific award</p>
+<pre class="python"><code># Get award where its code is &quot;MA000001&quot;
+fwc.get_award(id_or_code=&#39;MA000001&#39;).head(3)</code></pre>
+<pre><code>## |    |   award_id |   award_fixed_id | code     | name                                  | award_operative_from      | award_operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|-----------:|-----------------:|:---------|:--------------------------------------|:--------------------------|:---------------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |          0 |                1 | MA000001 | Black Coal Mining Industry Award 2020 | 2010-01-01T00:00:00+00:00 |                      |                3 | 2022-01-17T16:12:10+00:00 |             2021 |
+## |  1 |          0 |                1 | MA000001 | Black Coal Mining Industry Award 2020 | 2010-01-01T00:00:00+00:00 |                      |                3 | 2021-06-26T11:33:16+00:00 |             2020 |
+## |  2 |          0 |                1 | MA000001 | Black Coal Mining Industry Award 2020 | 2010-01-01T00:00:00+00:00 |                      |                3 | 2019-10-23T11:12:07+00:00 |             2019 |</code></pre>
+</div>
+<div id="classifications" class="section level2">
+<h2>Classifications</h2>
+<p>These 4 functions retrieve classifications related information.</p>
+<p><code>get_classification</code> : get information for a specific classification in a specific award</p>
+<pre class="python"><code># Get classification &quot;98&quot; in award &quot;MA000002&quot;
+fwc.get_classification(id_or_code=&#39;MA000002&#39;,classification_fixed_id=&#39;98&#39;)</code></pre>
+<pre><code>## |    |   classification_fixed_id |   clause_fixed_id |   clauses | clause_description   | parent_classification_name   | classification   |   classification_level | next_down_classification_fixed_id   |   next_up_classification_fixed_id | operative_from            | operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|--------------------------:|------------------:|----------:|:---------------------|:-----------------------------|:-----------------|-----------------------:|:------------------------------------|----------------------------------:|:--------------------------|:---------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |                        98 |                 3 |      16.1 | Clerical Employees   |                              | Level 1—Year 1   |                      1 |                                     |                                99 | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-03-03T18:52:51+00:00 |             2021 |</code></pre>
+<p><code>get_classifications</code> : get information for all classifications in a specific award</p>
+<pre class="python"><code># Get all classifications in award &quot;MA000012&quot;
+fwc.get_classifications(id_or_code=&#39;MA000012&#39;).head(3)</code></pre>
+<pre><code>## |    |   classification_fixed_id |   clause_fixed_id |   clauses | clause_description   | parent_classification_name   | classification                      |   classification_level |   next_down_classification_fixed_id |   next_up_classification_fixed_id | operative_from            | operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|--------------------------:|------------------:|----------:|:---------------------|:-----------------------------|:------------------------------------|-----------------------:|------------------------------------:|----------------------------------:|:--------------------------|:---------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |                       549 |                31 |      16.1 | Pharmacy employees   |                              | Pharmacy assistant level 1          |                      1 |                                 nan |                               553 | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-03-03T18:52:51+00:00 |             2021 |
+## |  1 |                       553 |                31 |      16.1 | Pharmacy employees   |                              | Pharmacy student—1st year of course |                      1 |                                 549 |                               550 | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-03-03T18:52:51+00:00 |             2021 |
+## |  2 |                       550 |                31 |      16.1 | Pharmacy employees   |                              | Pharmacy assistant level 2          |                      2 |                                 553 |                               554 | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-03-03T18:52:51+00:00 |             2021 |</code></pre>
+<p><code>get_payrates</code> : get payrates(including historical) for all classifications in a specific award</p>
+<pre class="python"><code># Get all payrates in award &quot;MA000001&quot;
+fwc.get_payrates(id_or_code=&#39;MA000001&#39;).head(3)</code></pre>
+<pre><code>## |    |   classification_fixed_id | base_pay_rate_id   | base_rate_type   |   base_rate | calculated_pay_rate_id   | calculated_rate_type   |   calculated_rate | parent_classification_name   | classification                                                                                                                                |   classification_level | employee_rate_type_code   | operative_from            | operative_to   |   version_number |   published_year | last_modified_datetime    |
+## |---:|--------------------------:|:-------------------|:-----------------|------------:|:-------------------------|:-----------------------|------------------:|:-----------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------:|:--------------------------|:--------------------------|:---------------|-----------------:|-----------------:|:--------------------------|
+## |  0 |                        18 |                    |                  |         nan |                          |                        |                 0 | Group B                      | (Adult coal mining industry employee engaged in one of the following classifications)                                                         |                    nan |                           | 2021-07-01T00:00:00+00:00 |                |                1 |             2021 | 2022-03-03T18:52:51+00:00 |
+## |  1 |                         8 |                    |                  |         nan |                          |                        |                 0 | Group A                      | (Adult coal mining industry employees, without prior experience in the coal mining industry, engaged in one of the following classifications) |                    nan |                           | 2021-07-01T00:00:00+00:00 |                |                2 |             2021 | 2022-03-03T18:52:51+00:00 |
+## |  2 |                     90835 |                    |                  |         nan |                          |                        |                 0 | Adult apprentices            | Adult apprentices - % of the Mineworker - Induction Level 2 weekly rate                                                                       |                    nan |                           | 2021-07-01T00:00:00+00:00 |                |                1 |             2021 | 2022-01-13T16:41:36+00:00 |</code></pre>
+<p><code>get_current_payrate</code> : get current pay-rate for a specific classification in a specific award</p>
+<pre class="python"><code># Get a current payrate for classification &quot;549&quot; in award &quot;MA000012&quot;
+fwc.get_current_payrate(id_or_code=&#39;MA000012&#39;,classification_fixed_id=&#39;549&#39;)</code></pre>
+<pre><code>## |    |   classification_fixed_id | base_pay_rate_id   | base_rate_type   |   base_rate | calculated_pay_rate_id   | calculated_rate_type   |   calculated_rate | parent_classification_name   | classification             |   classification_level | employee_rate_type_code   | operative_from            | operative_to   |   version_number |   published_year | last_modified_datetime    |
+## |---:|--------------------------:|:-------------------|:-----------------|------------:|:-------------------------|:-----------------------|------------------:|:-----------------------------|:---------------------------|-----------------------:|:--------------------------|:--------------------------|:---------------|-----------------:|-----------------:|:--------------------------|
+## |  0 |                       549 | BR90099            | Weekly           |       848.5 | CR25779                  | Hourly                 |             22.33 |                              | Pharmacy assistant level 1 |                      1 | AD                        | 2021-07-01T00:00:00+00:00 |                |                1 |             2021 | 2022-03-03T18:52:51+00:00 |</code></pre>
+</div>
+<div id="penalities" class="section level2">
+<h2>Penalities</h2>
+<p><code>get_penalties</code> : get all penalties in a specific award</p>
+<pre class="python"><code># Get all penalties in award &quot;MA000012&quot;
+fwc.get_penalties(id_or_code=&#39;MA000012&#39;).head(3)</code></pre>
+<pre><code>## |    |   penalty_fixed_id |   clause_fixed_id | clause_description                                                                             |   classification_level | penalty_code   | penalty_description                     |   rate | employee_rate_type_code   |   penalty_calculated_value | calculated_includes_all_purpose   | base_pay_rate_id   | operative_from            | operative_to   |   version_number |   published_year | last_modified_datetime    |
+## |---:|-------------------:|------------------:|:-----------------------------------------------------------------------------------------------|-----------------------:|:---------------|:----------------------------------------|-------:|:--------------------------|---------------------------:|:----------------------------------|:-------------------|:--------------------------|:---------------|-----------------:|-----------------:|:--------------------------|
+## |  0 |               2132 |             21735 | Full-time and part-time adult employees—penalty rates for Saturday, Sunday and public holidays |                      1 |                | Saturday - Between 6.00 pm and 9.00 pm  |    150 | AD                        |                      33.5  | False                             | BR90099            | 2021-07-01T00:00:00+00:00 |                |                1 |             2021 | 2022-01-21T13:24:14+00:00 |
+## |  1 |               2132 |             21735 | Full-time and part-time adult employees—penalty rates for Saturday, Sunday and public holidays |                      1 |                | Saturday - Between 6.00 pm and 9.00 pm  |    150 | AD                        |                      33.5  | False                             | BR90103            | 2021-07-01T00:00:00+00:00 |                |                1 |             2021 | 2022-01-21T13:24:14+00:00 |
+## |  2 |               2133 |             21735 | Full-time and part-time adult employees—penalty rates for Saturday, Sunday and public holidays |                      1 |                | Saturday - Between 9.00 pm and midnight |    175 | AD                        |                      39.08 | False                             | BR90099            | 2021-07-01T00:00:00+00:00 |                |                1 |             2021 | 2022-01-21T13:24:14+00:00 |</code></pre>
+</div>
+<div id="expense-allowances" class="section level2">
+<h2>Expense Allowances</h2>
+<p>These 2 functions retrieve Expense Allowances related information.</p>
+<p><code>get_expense_allowance</code> : get a specific expense allowance in a specific award</p>
+<pre class="python"><code># Get expense allowance &quot;49&quot; in award &quot;MA000012&quot;
+fwc.get_expense_allowance(id_or_code=&#39;MA000012&#39;,expense_allowance_fixed_id=&#39;49&#39;)</code></pre>
+<pre><code>## |    |   expense_allowance_fixed_id |   clause_fixed_id | clauses    | allowance_type_code   | parent_allowance   | allowance                                                 | is_all_purpose   |   allowance_amount | payment_frequency   |   last_adjusted_year | cpi_quarter_last_adjusted   | operative_from            | operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|-----------------------------:|------------------:|:-----------|:----------------------|:-------------------|:----------------------------------------------------------|:-----------------|-------------------:|:--------------------|---------------------:|:----------------------------|:--------------------------|:---------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |                           49 |              1864 | 19.3(b)(i) |                       |                    | Meal allowance—overtime which exceeds 1.5 hours’ overtime | False            |              19.69 | per occasion        |                 2020 | March Quarter               | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-02-15T15:41:38+00:00 |             2021 |</code></pre>
+<p><code>get_expense_allowances</code> : get all expense allowances in a specific award</p>
+<pre class="python"><code># Get all expense allowances in award &quot;MA000012&quot;
+fwc.get_expense_allowances(id_or_code=&#39;MA000012&#39;).head(3)</code></pre>
+<pre><code>## |    |   expense_allowance_fixed_id |   clause_fixed_id | clauses    | allowance_type_code   | parent_allowance   | allowance                                                 | is_all_purpose   |   allowance_amount | payment_frequency   |   last_adjusted_year | cpi_quarter_last_adjusted   | operative_from            | operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|-----------------------------:|------------------:|:-----------|:----------------------|:-------------------|:----------------------------------------------------------|:-----------------|-------------------:|:--------------------|---------------------:|:----------------------------|:--------------------------|:---------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |                           49 |              1864 | 19.3(b)(i) |                       |                    | Meal allowance—overtime which exceeds 1.5 hours’ overtime | False            |              19.69 | per occasion        |                 2020 | March Quarter               | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-02-15T15:41:38+00:00 |             2021 |
+## |  1 |                         9660 |             23173 | 19.3(c)    |                       |                    | Meal allowance—overtime which exceeds 4 hours             | False            |              17.64 | per occasion        |                 2020 | March Quarter               | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-02-15T15:41:38+00:00 |             2021 |
+## |  2 |                           53 |              1867 | 19.7       |                       |                    | Motor vehicle allowance                                   | False            |               0.8  | per km              |                 2020 | March Quarter               | 2020-07-01T00:00:00+00:00 |                |                1 | 2022-02-15T15:41:38+00:00 |             2021 |</code></pre>
+</div>
+<div id="wage-allowances" class="section level2">
+<h2>Wage Allowances</h2>
+<p>These 2 functions retrieve Wage Allowances related information.</p>
+<p><code>get_wage_allowance</code> : get a specific wage allowance in a specific award</p>
+<pre class="python"><code># Get wage allowance &quot;191&quot; in award &quot;MA000012&quot;
+fwc.get_wage_allowance(id_or_code=&#39;MA000012&#39;,wage_allowance_fixed_id=&#39;191&#39;)</code></pre>
+<pre><code>## |    |   wage_allowance_fixed_id |   clause_fixed_id |   clauses | allowance_type_code   | parent_allowance   | allowance             | is_all_purpose   |   rate | rate_unit   | base_pay_rate_id   |   allowance_amount | payment_frequency   | operative_from            | operative_to   |   version_number | last_modified_datetime    |   published_year |
+## |---:|--------------------------:|------------------:|----------:|:----------------------|:-------------------|:----------------------|:-----------------|-------:|:------------|:-------------------|-------------------:|:--------------------|:--------------------------|:---------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |                       191 |               788 |      19.9 |                       |                    | Broken Hill allowance | False            |   4.28 | Percent     | BR90101            |               38.5 | per week            | 2021-07-01T00:00:00+00:00 |                |                1 | 2022-03-03T09:01:31+00:00 |             2021 |</code></pre>
+<p><code>get_wage_allowances</code> : get all wage allowances in a specific award</p>
+<pre class="python"><code># Get all wage allowances in award &quot;MA000012&quot;
+fwc.get_wage_allowances(id_or_code=&#39;MA000012&#39;).head(3)</code></pre>
+<pre><code>## |    |   wage_allowance_fixed_id |   clause_fixed_id |   clauses | allowance_type_code   | parent_allowance   | allowance                                                          | is_all_purpose   |   rate | rate_unit   | base_pay_rate_id   |   allowance_amount | payment_frequency   | operative_from            | operative_to              |   version_number | last_modified_datetime    |   published_year |
+## |---:|--------------------------:|------------------:|----------:|:----------------------|:-------------------|:-------------------------------------------------------------------|:-----------------|-------:|:------------|:-------------------|-------------------:|:--------------------|:--------------------------|:--------------------------|-----------------:|:--------------------------|-----------------:|
+## |  0 |                       191 |               788 |      19.9 |                       |                    | Broken Hill allowance                                              | False            |   4.28 | Percent     | BR90101            |              38.5  | per week            | 2021-07-01T00:00:00+00:00 |                           |                1 | 2022-03-03T09:01:31+00:00 |             2021 |
+## |  1 |                     12011 |             23000 |      19.2 |                       |                    | Home medicine reviews or residential medication management reviews | False            |   0    | Percent     | BR90109            |             106.4  | per week            | 2021-07-01T00:00:00+00:00 |                           |                1 | 2022-03-03T09:01:31+00:00 |             2021 |
+## |  2 |                       191 |               788 |      19.9 |                       |                    | Broken Hill allowance                                              | False            |   4.28 | Percent     |                    |              37.56 | per week            | 2020-07-01T00:00:00+00:00 | 2021-06-30T00:00:00+00:00 |              nan | 2022-03-03T09:01:31+00:00 |             2020 |</code></pre>
+<p>If you find any questions or have any suggestions, feel free to report on the <a href="https://github.com/frankzhangsyd/pyfwc">github</a></p>
+</div>
+</div>
