@@ -7,7 +7,7 @@ categories: []
 tags: []
 ---
 
-Australian Fair Work Commission recently publish their API for modern awards (https://uatdeveloper.fwc.gov.au/). I developed this python package [pyfwc](https://github.com/frankzhangsyd/pyfwc) as a wrapper to help use this API easily in python.
+Australian Fair Work Commission recently publish their API for modern awards (https://uatdeveloper.fwc.gov.au/). I developed this python package [pyfwc](https://github.com/frankzhangsyd/pyfwc) as a wrapper to help use this API easily in python. You can also use the script over [here](https://github.com/frankzhangsyd/Fair-Work-Commission-Modern-Awards-Data) as an example.
 
 # Pre-requirements
 1. Go to the website (https://uatdeveloper.fwc.gov.au/) and obtain a subscription key. You should be able to find it under the "profile" section of the website.
